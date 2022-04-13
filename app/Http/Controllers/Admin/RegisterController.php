@@ -52,4 +52,20 @@ class RegisterController extends Controller
 
         return redirect()->away(env('FRONTEND_APP_URL') . '/404');
     }
+
+    /**
+     * Resend Verification Email
+     * 
+     * @param  int $id
+     * @return array
+     */
+    public function resendVerificationEmail($id)
+    {
+        if ($this->repo->resendVerificationEmail($id)) {
+            return response()->json('Verification link was sent. Please check your email.', 200);
+        }
+
+        return response()->json('Failed to send verification link to email. Please try again.', 500);
+    }
+
 }
