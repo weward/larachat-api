@@ -18,7 +18,7 @@ class AuthService {
              * Or if manual password checking: 
              *  Hash::check('input', 'passwordFromDB')
              */
-            if (!\Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
+            if (! Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
                 return ['response' => false, 'message' => "", 'user_id' => ''];
             }
 

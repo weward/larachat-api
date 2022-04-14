@@ -26,6 +26,9 @@ class AuthTest extends TestCase
         $user = User::factory()->create([
             'password' => Hash::make('secret123')
         ]);
+
+        info($user);
+
         $this->postJson(route('api.login', [
             'email' => $user->email,
             'password' => 'secret123'

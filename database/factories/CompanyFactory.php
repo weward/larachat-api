@@ -21,7 +21,8 @@ class CompanyFactory extends Factory
     {
         return [
             'name' => $this->faker->company,
-            'subscription_plan_id' => 1
+            'subscription_plan_id' => 1,
+            'verified_at' => now(),
         ];
     }
 }

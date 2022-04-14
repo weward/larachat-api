@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Cashier\Billable;
 
 class Company extends Model
 {
-    use HasFactory;
+    use HasFactory, Billable;
     
     protected $table = 'companies';
 
@@ -16,11 +17,8 @@ class Company extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Get the users of this company
-     */
-    public function users()
+    public function inCharge()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class, 'in_charge');
     }
 }

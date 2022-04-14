@@ -17,8 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('subscription_plan_id')->default(1);
-            $table->string('in_charge')->nullable()->comment('user_id of person in charge');
+            $table->bigInteger('in_charge')->unsigned()->index()->nullable()->comment('user_id of person in charge');
             $table->timestamps();
+
+            $table->foreign('in_charge')
+                ->references('id')
+                ->on('users');
         });
     }
 

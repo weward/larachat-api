@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\BillingController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\RegisterController;
 use Illuminate\Http\Request;
@@ -29,6 +30,11 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 });
 
 Route::namespace('Admin')->group(function() {
+    Route::prefix('billing')->group(function() {
+        Route::get('/get-stripe', [BillingController::class, 'index'])->name('api.stripe.index');
+        Route::post('/setup-payment-method', [BillingController::class, 'setupPaymentMethod'])->name('api.stripe.setup-payment-method');
+    });
+
     Route::post('/register', [RegisterController::class, 'register'])->name('api.register');
     Route::get('/verify/{id}/{hash}', [RegisterController::class, 'verify'])->name('api.verify');
     Route::post('/forgot-password', [ForgotPasswordController::class, 'handle'])->name('api.forgot-password');
