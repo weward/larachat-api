@@ -19,7 +19,7 @@ class AuthService {
              *  Hash::check('input', 'passwordFromDB')
              */
             if (!\Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
-                return ['response' => false, 'message' => "", 'user_id' => $user->id];
+                return ['response' => false, 'message' => "", 'user_id' => ''];
             }
 
             if (is_null($user->email_verified_at)) {
