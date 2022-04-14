@@ -42,12 +42,29 @@ class AuthService {
             return [
                 'response' => true,
                 'user' => $user->toJson(),
-                'subscription_plan' => config("subscriptionplans.{$user->company->subscription_plan_id}")
+                'subscription_plan' => config("subscriptionplans.{$user->company->subscription_plan_id}"),
+                'access_token' => $user->createToken('sanctum')->plainTextToken,
             ];
         } catch (\Throwable $th) {
             DB::rollBack();
 
             return ['response' => false, 'message' => $th->getMessage()];
+        }
+    }
+
+    public function logout($req)
+    {
+        DB::beginTransaction();
+        try {
+            $req->user()->tokens()->delete();
+
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return false;
         }
     }
 }

@@ -28,4 +28,13 @@ class AuthController extends Controller
             'user_id' => $res['user_id'] 
         ], 500);
     }
+
+    public function logout(Request $request)
+    {
+        if ($this->repo->logout($request)) {
+            return response()->json('You have been logged out of the system.', 200);
+        }
+
+        return response()->json('Failed to logout. Please try again', 500);
+    }
 }
