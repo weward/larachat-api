@@ -23,6 +23,9 @@ class AuthController extends Controller
             return response()->json($res, 200);
         }
 
-        return response()->json($res['message'] != '' ? $res['message'] : 'Failed to login', 500);
+        return response()->json([
+            'message' => $res['message'] != '' ? $res['message'] : 'Failed to login',
+            'user_id' => $res['user_id'] 
+        ], 500);
     }
 }

@@ -18,15 +18,16 @@ class AuthService {
              * Or if manual password checking: 
              *  Hash::check('input', 'passwordFromDB')
              */
-            if (!$res = Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
-                return ['response' => false, 'message' => "{$res}"];
+            if (!\Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
+                return ['response' => false, 'message' => "", 'user_id' => $user->id];
             }
 
             if (is_null($user->email_verified_at)) {
-                $resendRoute = route('api.resend-verification-email', ['id' => $user->id]);
+                $resendRoute = route('resend-verification-email', ['id' => $user->id]);
                 return [
                     'response' => false,
-                    'message' => "Your account is not yet verified. Please check your email. <a href='{$resendRoute}'>Resend Verification Email.</a>"
+                    'message' => "Your account is not yet verified. Please check your email.",
+                    'user_id' => $user->id
                 ];
             }
 
