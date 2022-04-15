@@ -27,8 +27,6 @@ class BillingController extends Controller
 
     public function setupPaymentMethod(BillingStripePaymentMethodRequest $request)
     {
-        // return response()->json($this->repo->setupPaymentMethod($request), 500);
-
         if ($res = $this->repo->setupPaymentMethod($request)) {
             return response()->json($res, 200);
         }
