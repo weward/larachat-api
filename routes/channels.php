@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ChatQueue;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -16,3 +17,13 @@ use Illuminate\Support\Facades\Broadcast;
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
+
+// Broadcast::channel('test-channel', function ($chat_queue_id, $user = null, $email = null) {
+//     // if (!is_null($user)) {
+//     //     return $user->id === ChatQueue::find($chat_queue_id)->user_id;
+//     // } else if (!is_null($email)) {
+//     //     return $email === ChatQueue::where('email', $email)->first()->email;
+//     // }
+
+//     return true;
+// });

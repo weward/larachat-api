@@ -48,3 +48,6 @@ Route::namespace('Admin')->group(function() {
     Route::post('/login', [AuthController::class, 'login'])->name('api.login');
     Route::get('/resend-verification-email/{id}', [RegisterController::class, 'resendVerificationEmail'])->name('api.resend-verification-email');
 });
+
+// Broadcast::routes(['middleware' => 'auth:api']); 
+Route::get('test', 'Admin\ChatController@test');
