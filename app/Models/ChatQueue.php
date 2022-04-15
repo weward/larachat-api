@@ -10,4 +10,6 @@ class ChatQueue extends Model
     use HasFactory;
 
     protected $table = 'chat_queues';
+
+    protected $guarded = [];
 }

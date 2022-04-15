@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('chat_queues', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
+                ->nullable()
                 ->comment('agent')
                 ->constrained()
                 ->onDelete('cascade');

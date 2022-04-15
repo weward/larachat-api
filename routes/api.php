@@ -26,7 +26,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  * Embedded Application
  * This is the point where <iFrames> connect
  */
-Route::post('/embed/app-settings', [EmbedController::class, 'embedAppSettings'])->name('api.settings.embed-app');
+Route::prefix('embed')->group(function () {
+    Route::post('/app-settings', [EmbedController::class, 'embedAppSettings'])->name('api.settings.embed-app');
+    Route::post('/login', [QueueController::class, 'connect'])->name('api.settings.login');
+});
 
 /**
  * Authenticated Routes
