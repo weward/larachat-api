@@ -5,7 +5,8 @@ use App\Models\UserLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class AuthService {
+class AuthService 
+{
 
     public function login($req)
     {
@@ -57,6 +58,12 @@ class AuthService {
         DB::beginTransaction();
         try {
             $req->user()->tokens()->delete();
+
+            // Log User Out
+            $req->user()->logs()->save(new UserLog([
+                'user_id' => $req->user()->id,
+                'action' => 'Logged Out',
+            ]));
 
             DB::commit();
 

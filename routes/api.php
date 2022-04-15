@@ -23,10 +23,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /**
+ * Embedded Application
+ * This is the point where <iFrames> connect
+ */
+Route::post('/embed/app-settings', [EmbedController::class, 'embedAppSettings'])->name('api.settings.embed-app');
+
+/**
  * Authenticated Routes
  */
 Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
-    Route::get('/logout', 'Admin\AuthController@logout');
+    Route::get('/logout',[ AuthController::class, 'logout'])->name('api.logout');
 });
 
 Route::namespace('Admin')->group(function() {

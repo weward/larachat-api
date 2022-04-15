@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('chat_log_id')
                 ->index()
                 ->constrained();
+            $table->tinyInteger('from_flag')->default(1)->comment('0 - customer, 1 - agent(user_id)');
             $table->text('message');
             $table->timestamps();
         });
