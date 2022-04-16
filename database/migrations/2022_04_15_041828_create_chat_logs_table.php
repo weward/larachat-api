@@ -21,8 +21,6 @@ return new class extends Migration
                 ->constrained();
             $table->foreignId('chat_queue_id')
                 ->constrained();
-            $table->dateTime('requested_at', 0)->comment('when queued');
-            $table->dateTime('session_started_at', 0)->comment('when taken by agent');
             $table->dateTime('finished_at', 0);
             $table->timestamps();
 
