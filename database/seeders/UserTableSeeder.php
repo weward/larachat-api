@@ -30,6 +30,17 @@ class UserTableSeeder extends Seeder
             'email_verified_at' => now()
         ]);
 
+        $publicChatUser = User::create([
+            'company_id' => $company->id,
+            'name' => 'Public Chat User',
+            'email' => 'public.chat.user@admin.com',
+            'password' => Hash::make('secret123'),
+            'email_verified_at' => now()
+        ]);
+
+        $publicChatUser->permanent_access_token = $publicChatUser->createToken('sanctum')->plainTextToken;
+        $publicChatUser->save();
+
         $company->in_charge = $user->id;
         $company->save();
     }

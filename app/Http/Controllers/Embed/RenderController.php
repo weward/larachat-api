@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Embed;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmbedAppSettingsRequest;
-use App\Services\Embed\Renderservice;
+use App\Services\Embed\RenderService;
 use Illuminate\Http\Request;
 
 class RenderController extends Controller
 {
     protected $repo;
 
-    public function __construct(Renderservice $repo)
+    public function __construct(RenderService $repo)
     {
         $this->repo = $repo;
     }

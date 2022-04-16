@@ -17,11 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('email')->comment('customer');
             $table->foreignId('user_id')
+                ->nullable()
                 ->comment('agent')
                 ->constrained();
-            $table->foreignId('chat_queue_id')
-                ->constrained();
-            $table->dateTime('finished_at', 0);
+            $table->bigInteger('chat_queue_id')->nullable();
+            $table->dateTime('queued_at', 0)->comment('created_at of queue');
+            $table->dateTime('finished_at', 0)->nullable();
+            $table->tinyInteger('flag')->default(1)->comment('0 - Done, 1 - Active');            
             $table->timestamps();
 
             $table->index(['email', 'user_id', 'chat_queue_id']);

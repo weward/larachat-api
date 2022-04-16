@@ -12,4 +12,6 @@ class ChatController extends Controller
     {
         event(new SendTest('This is a test message'));
     }
+
+    
 }

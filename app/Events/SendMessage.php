@@ -10,28 +10,26 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SendTest
+class SendMessage
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
-    public $user;
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($data)
     {
-        $this->message = $message;
+        $this->data = $data;
     }
 
     public function broadcastAs()
     {
-        return 'SendTest'; // prepend with . on Echo's listener
+        return "SendMessage";
     }
-
 
     /**
      * Get the channels the event should broadcast on.
@@ -40,19 +38,19 @@ class SendTest
      */
     public function broadcastOn()
     {
-        // return new PrivateChannel('channel-name');
-        return 'test-channel';
+        return new PrivateChannel("chat.{$this->data['chat_log_id']}");
     }
 
     public function broadcastWith()
     {
         return [
-            'message' => $this->message
-            // 'user' => [
-            //     'id' => $this->user->id,
-            //     'name' => $this->user->name,
-            //     'email' => $this->user->email
-            // ]
+            'chat_log_id' => $this->data['chat_log_id'],
+            'customer' => $this->data['customer'],
+            'agent_id' => $this->data['agent_id'],
+            'chat_message_id' => $this->data['chat_message_id'],
+            'message' => $this->data['message'],
+            'from' => $this->data['from'],
+            'time' => $this->data['time'],
         ];
     }
 }

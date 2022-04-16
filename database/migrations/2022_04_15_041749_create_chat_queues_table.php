@@ -15,19 +15,13 @@ return new class extends Migration
     {
         Schema::create('chat_queues', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->nullable()
-                ->comment('agent')
-                ->constrained()
-                ->onDelete('cascade');
             $table->foreignId('chat_app_id')
                 ->constrained()
                 ->onDelete('cascade');
             $table->string('email');
-            $table->tinyInteger('flag')->default(0)->comment('0 - queued, 1 - active');
             $table->timestamps();
 
-            $table->index(['user_id', 'chat_app_id', 'email']);
+            $table->index(['chat_app_id', 'email']);
         });
     }
 

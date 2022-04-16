@@ -10,4 +10,11 @@ class ChatMessage extends Model
     use HasFactory;
 
     protected $table = 'chat_messages';
+
+    protected $guarded = [];
+
+    public function chatLog()
+    {
+        return $this->belongsTo(ChatLog::class);
+    }
 }

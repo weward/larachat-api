@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BillingController;
 use App\Http\Controllers\Admin\ForgotPasswordController;
 use App\Http\Controllers\Admin\RegisterController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,6 +45,12 @@ Route::namespace('Admin')->group(function() {
         Route::post('/setup-payment-method', [BillingController::class, 'setupPaymentMethod'])->name('api.stripe.setup-payment-method');
     });
 
+    Route::prefix('chat')->group(function () {
+        Route::get('/init-inbox', 'Admin\Chat\CustomerController@initInbox');
+        Route::get('/add-new-customer', 'Admin\Chat\CustomerController@add');
+        Route::post('/send-message', 'Admin\Chat\MessageController@send');
+    });
+
     Route::post('/register', [RegisterController::class, 'register'])->name('api.register');
     Route::get('/verify/{id}/{hash}', [RegisterController::class, 'verify'])->name('api.verify');
     Route::post('/forgot-password', [ForgotPasswordController::class, 'handle'])->name('api.forgot-password');
@@ -53,4 +60,4 @@ Route::namespace('Admin')->group(function() {
 });
 
 // Broadcast::routes(['middleware' => 'auth:api']); 
-Route::get('test', 'Admin\ChatController@test');
+Broadcast::routes(['middleware' => 'auth:sanctum']);
